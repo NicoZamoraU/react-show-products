@@ -138,19 +138,36 @@ export class Search extends Component {
             <GridListTile key='Subheader' cols={2} style={{ height: 'auto' }}>
               <ListSubheader component='div'>Productos</ListSubheader>
             </GridListTile>
-            {searchDataSlicedFiltered.map((item, i) => (
-              <GridListTile key={i.toString()}>
-                <img src={item.imagen.toString()} alt={item.titulo.toString()} />
-                <GridListTileBar
-                  title={item.titulo}
-                  actionIcon={
-                    <IconButton aria-label={`Información de ${item.title}`} className={classes.icon}>
-                      <StarIcon />
-                    </IconButton>
-                  }
-                />
-              </GridListTile>
-            ))}
+            {searchDataSlicedFiltered.length > 0
+              ? searchDataSlicedFiltered.map((item, i) => (
+                  <GridListTile key={i.toString()}>
+                    <img src={item.imagen.toString()} alt={item.titulo.toString()} />
+                    <GridListTileBar
+                      title={item.titulo}
+                      actionIcon={
+                        (
+                          <IconButton
+                            aria-label={`Información de ${item.title}`}
+                            className={classes.icon}
+                          >
+                            <StarIcon />
+                          </IconButton>
+                        )
+                      }
+                    />
+                  </GridListTile>
+              ))
+              : (
+                <Container
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    display: 'flex',
+                  }}
+                >
+                  <Typography variant='h5' component='p'> Sin datos para mostrar </Typography>
+                </Container>
+              )}
           </GridList>
           {/* <Grid container justify='center' className={classes.containerProduct}>
             <Paper variant='outlined' className={classes.product}>hi</Paper>
