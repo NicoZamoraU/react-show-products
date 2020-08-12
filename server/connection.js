@@ -24,7 +24,7 @@ const insertData = async () => {
     return acum
   }, [])
 
-  const insertSQL = "INSERT INTO shop.productoss(titulo,descripcion,fecha_inicio,fecha_termino,precio,imagen,vendidos,tags) VALUES ? "
+  const insertSQL = "INSERT INTO shop.productos(titulo,descripcion,fecha_inicio,fecha_termino,precio,imagen,vendidos,tags) VALUES ? "
 
   con.query(insertSQL, [dataReduced], (err, result) => {
     if (err) throw err
