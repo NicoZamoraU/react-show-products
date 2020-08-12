@@ -50,5 +50,6 @@ module.exports = {
     'react/prefer-stateless-function': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/jsx-fragments': 0,
+    'react/prop-types': 0,
   },
 }

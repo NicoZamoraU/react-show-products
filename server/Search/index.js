@@ -1,7 +1,10 @@
 import express from 'express'
 
+import conn from '../connection'
+import { getAllData } from './middleware'
+
 const router = express.Router()
 
-router.get('/', (req, res) => res.sendStatus(200))
+router.get('/all', getAllData({ conn }))
 
 export default router

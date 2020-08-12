@@ -1,5 +1,5 @@
 import Search from './Views/Search/reducers/search.reducer'
 
-export {
+export default {
   Search,
 }

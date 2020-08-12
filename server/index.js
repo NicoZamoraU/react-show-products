@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan-body'
 import bodyParser from 'body-parser'
-import csvtojson from 'csvtojson/v2'
+import connection from './connection'
 
 import Routes from './routes'
 
@@ -19,13 +19,6 @@ if (process.env.NODE_ENV !== 'production') {
     logAllReqHeader: true,
   })
 }
-
-csvtojson()
-  .fromFile(`${__dirname}/datos_descuentos_buscador_prueba.2.0.csv`)
-  .then(json => {
-    console.log({ json })
-  })
-  .catch(err => console.log({ err }))
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
