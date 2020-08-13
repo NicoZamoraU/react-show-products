@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {
-  BrowserRouter as Router,
-} from 'react-router-dom'
+// import {
+//   BrowserRouter as Router,
+// } from 'react-router-dom'
+import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
@@ -24,7 +25,7 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga)
 
-// history.replace('/')
+history.replace('/')
 
 store.dispatch({ type: 'INIT_SAGA', history })
 

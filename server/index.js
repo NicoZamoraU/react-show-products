@@ -22,6 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json({ limit: '300mb' }))
 Routes(app)
 
 export default app

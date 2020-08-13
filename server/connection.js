@@ -34,7 +34,7 @@ const insertData = async () => {
 
 con.query('CREATE DATABASE shop', (err, result) => {
   if (err && err.code !== 'ER_DB_CREATE_EXISTS') throw err
-  if (err.code === 'ER_DB_CREATE_EXISTS') return
+  if (err && err.code === 'ER_DB_CREATE_EXISTS') return
   console.log('DB Created Successfully')
 })
 

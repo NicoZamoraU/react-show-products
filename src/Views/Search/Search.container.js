@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Lottie from 'react-lottie'
 import { withStyles, fade } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import StarIcon from '@material-ui/icons/StarBorder'
@@ -20,6 +21,8 @@ import {
   GridListitemBar,
 } from '@material-ui/core'
 import _ from 'lodash'
+
+import { Searching } from '../Animations'
 
 const styles = {
   container: {
@@ -100,14 +103,78 @@ const styles = {
   },
 }
 
+const showData = props => {
+  const {
+    searching,
+    classes,
+    searchData,
+    searchText,
+  } = props
+
+  const searchDataFiltered = searchText && searchText.length > 0
+    ? _.filter(searchData, x => x.titulo.toLowerCase().includes(searchText.toLowerCase()))
+    : searchData
+
+  if (searching) {
+    return (
+      <div>
+        <Lottie
+          options={{
+            loop: true,
+            autoplay: true,
+            animationData: Searching,
+          }}
+          height='50%'
+          width='50%'
+          isClickToPauseDisabled
+        />
+      </div>
+    )
+  }
+
+  if (!searchDataFiltered.length) {
+    return (
+      <Container
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          display: 'flex',
+        }}
+      >
+        <Typography variant='h5' component='p'> Sin datos para mostrar </Typography>
+      </Container>
+    )
+  }
+
+  return (
+    <GridList cellHeight={250} className={classes.gridList}>
+      {searchDataFiltered.map((item, i) => (
+        <GridListTile key={i.toString()}>
+          <img src={item.imagen} alt={item.titulo} />
+          <GridListTileBar
+            title={item.titulo}
+            actionIcon={
+              (
+                <IconButton
+                  aria-label={`Información de ${item.title}`}
+                  className={classes.icon}
+                >
+                  <StarIcon />
+                </IconButton>
+              )
+            }
+          />
+        </GridListTile>
+      ))}
+    </GridList>
+  )
+}
+
 export class Search extends Component {
   render() {
-    const { classes, history, searchData, searchText } = this.props
-    const searchDataSliced = _.slice(searchData, 0, 100)
-
-    const searchDataSlicedFiltered = searchText && searchText.length > 0
-      ? _.filter(searchDataSliced, x => x.titulo.toLowerCase().includes(searchText.toLowerCase()))
-      : searchDataSliced
+    const {
+      classes,
+    } = this.props
 
     const handleSearch = text =>
       this.props.searchingText(text)
@@ -134,46 +201,8 @@ export class Search extends Component {
               <div className={classes.grow} />
             </Toolbar>
           </AppBar>
-          <GridList cellHeight={250} className={classes.gridList}>
-            <GridListTile key='Subheader' cols={2} style={{ height: 'auto' }}>
-              <ListSubheader component='div'>Productos</ListSubheader>
-            </GridListTile>
-            {searchDataSlicedFiltered.length > 0
-              ? searchDataSlicedFiltered.map((item, i) => (
-                  <GridListTile key={i.toString()}>
-                    <img src={item.imagen.toString()} alt={item.titulo.toString()} />
-                    <GridListTileBar
-                      title={item.titulo}
-                      actionIcon={
-                        (
-                          <IconButton
-                            aria-label={`Información de ${item.title}`}
-                            className={classes.icon}
-                          >
-                            <StarIcon />
-                          </IconButton>
-                        )
-                      }
-                    />
-                  </GridListTile>
-              ))
-              : (
-                <Container
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    display: 'flex',
-                  }}
-                >
-                  <Typography variant='h5' component='p'> Sin datos para mostrar </Typography>
-                </Container>
-              )}
-          </GridList>
-          {/* <Grid container justify='center' className={classes.containerProduct}>
-            <Paper variant='outlined' className={classes.product}>hi</Paper>
-            <Paper variant='outlined' className={classes.product}>hi</Paper>
-            <Paper variant='outlined' className={classes.product}>hi</Paper>
-          </Grid> */}
+          <br />
+          {showData(this.props)}
         </Container>
       </div>
     )
@@ -182,16 +211,21 @@ export class Search extends Component {
 
 const mapStateToProps = state => {
   const {
-    Search: { data: searchData, searchText },
+    Search: {
+      data: searchData,
+      searchText,
+      searching,
+    },
   } = state
 
   return {
     searchData,
     searchText,
+    searching,
   }
 }
 const mapDispatchToProps = dispatch => ({
-  searchingText: payload => dispatch({ type: 'SEARCH_TEXT', payload }),
+  searchingText: payload => dispatch({ type: 'SEARCH_DATA', payload }),
 })
 
 export default connect(
