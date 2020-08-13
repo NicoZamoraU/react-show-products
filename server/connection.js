@@ -24,7 +24,7 @@ const insertData = async () => {
     return acum
   }, [])
 
-  const insertSQL = "INSERT INTO shop.productos(titulo,descripcion,fecha_inicio,fecha_termino,precio,imagen,vendidos,tags) VALUES ? "
+  const insertSQL = `INSERT INTO ${config.data_base_name}.${config.table_name}(titulo,descripcion,fecha_inicio,fecha_termino,precio,imagen,vendidos,tags) VALUES ? `
 
   con.query(insertSQL, [dataReduced], (err, result) => {
     if (err) throw err
@@ -32,13 +32,13 @@ const insertData = async () => {
   })
 }
 
-con.query('CREATE DATABASE shop', (err, result) => {
+con.query(`CREATE DATABASE ${config.data_base_name}`, (err, result) => {
   if (err && err.code !== 'ER_DB_CREATE_EXISTS') throw err
   if (err && err.code === 'ER_DB_CREATE_EXISTS') return
   console.log('DB Created Successfully')
 })
 
-const createTable = `CREATE TABLE shop.productos (
+const createTable = `CREATE TABLE ${config.data_base_name}.${config.table_name} (
   id INT AUTO_INCREMENT,
   titulo LONGTEXT,
   descripcion LONGTEXT,

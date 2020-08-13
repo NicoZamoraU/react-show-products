@@ -2,12 +2,12 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan-body'
 import bodyParser from 'body-parser'
-import connection from './connection'
 
 import Routes from './routes'
+import config from './config'
 
 const app = express()
-const port = process.env.PORT || 3002
+const port = config.port || 3002
 
 app.listen(
   port,

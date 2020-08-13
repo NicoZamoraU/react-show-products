@@ -1,8 +1,10 @@
 import _ from 'lodash'
 
+import config from '../config'
+
 export const getStadistics = ({ conn }) => async (req, res, next) => {
   try {
-    const sqlQuery = 'SELECT * FROM shop.productos'
+    const sqlQuery = `SELECT * FROM ${config.data_base_name}.${config.table_name}`
     await conn.query(sqlQuery, (err, resolve) => {
       if (err) return res.status(200).send([])
 

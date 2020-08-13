@@ -27,6 +27,7 @@ const showPorducts = props => {
           <img src={item.imagen} alt={item.titulo} />
           <GridListTileBar
             title={item.titulo}
+            subtitle={item.tags}
             actionIcon={
               (
                 <IconButton
@@ -74,8 +75,9 @@ export class StadisticsContainer extends Component {
                 item
                 className={classes.containerTags}
               >
-                {data.map(x => (
+                {data.map((x, i) => (
                   <Chip
+                    key={i.toString()}
                     color='primary'
                     label={x.tag}
                     deleteIcon={<DoneIcon />}

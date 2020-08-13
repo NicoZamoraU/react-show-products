@@ -14,6 +14,23 @@ NPM or YARN installed globaly (I prefer YARN)
 
 ## RUNNING Proyect
 
+### **Setting variables**
+
+```
+For default when you start server, it will be create a DataBase called SHOP
+and table called PRODUCTOS
+
+if you want change this names you need create .env file on root dir
+```
+
+#### .ENV content
+
+```
+PORT=3002
+DATA_BASE_NAME='prefered_name'
+TABLE_NAME='prefered_name'
+```
+
 
 ### Starting Server & React Page
 
