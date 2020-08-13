@@ -36,6 +36,10 @@ TABLE_NAME='prefered_name'
 
 > Need two terminals to run this project
 
+```
+When start server, automatically will be inserted 200 products into database...
+```
+
 #### First Terminal
 `yarn serve` (Starting server on port 3002)
 
